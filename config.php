@@ -8,12 +8,8 @@ $configuracion=[
     'tabla'    =>'argentino',
     'columnas'=>[
         'nombre', 'copas', 'nacionales'
-    ]
+    ],
+    'baseUrl' => 'http://localhost/Mato/Futbol-argentino/'
 ];
-
-
-
-sryrdh
-
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 
 include("arribaplantilla.php");
-require_once "../service/BdatosService.php";
+require_once "service/BdatosService.php";
 
 ?>
 
