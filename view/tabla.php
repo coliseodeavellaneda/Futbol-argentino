@@ -12,7 +12,7 @@ include("arribaplantilla.php");
                                 <?php
                                     echo $parametros['titulo'];
                                 ?>
-                                <a href="formularioCrear.php" class="btn btn-primary">
+                                <a href="<?php echo $this->config['base_url'] . $parametros['route']?>/create" class="btn btn-primary">
                                     nuevo
                                 </a>
                             </h6>
