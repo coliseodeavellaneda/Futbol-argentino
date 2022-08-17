@@ -1,126 +1,92 @@
 <?php
 
-require_once "config.php";              
-//PEDIMOS TRAER ARCHIVO      
  
 class BdatosService                        
-//VAS A PONER REGLAS PARA CREAR OBJETOS
 {
-    public $config;                        
-//ATRIBUTO PUBLICO DE LA CLASE/OBJETO
-
-    public function __construct($config)   
-//METODO QUE SE EJECUTARA AL CREAR EL OBJETO
-    {
-        $this->config = $config;           
-//AL CREAR EL OBJETO GUARDA LA INFO EN EL ATRIBUTO DE LA CLASE
-    }
-
-    public function crearConexionMysql()   
-//METODO DE CLASE QUE SE EJECUTA PARA CREAR UN OBJETO DE CONEXION A MYSQL
+    public function crearConexionMysql($config)   
     {
         return mysqli_connect(            
-//DEVUELVE CONEXION CON MYSQL
-            $this->config['hostname'],     
-            $this->config['usuario'],      
-            $this->config['contrasena']  
-//CONFIGURACION QUE LE DOY A LA FUNCION PARA CREAR LA CONEXION
+            $config['hostname'],
+            $config['usuario'],
+            $config['contrasena']
         );
     }
 
-    public function comprobarSiExisteNombre($nombreAComprobar)
-//METODO PARA COMPROBAR SI UN NOMBRE YA EXISTE EN LA TABLA
+    public function comprobarSiExisteNombre($nombreAComprobar, $config)
     {
-        $objetoConexion = $this->crearConexionMysql();
-//VARIABLE EQUIVALENTE A LO QUE DEVUELVE EL METODO DE ESTA CLASE
-        mysqli_select_db($objetoConexion, $this->config['bdd']);
-//SELECCIONO BASE DE DATOS DE MYSQL CON SUS PARAMETROS
-        $consulta = 'SELECT * FROM ' . $this->config['tabla'] .
+        $objetoConexion = $this->crearConexionMysql($config);
+        mysqli_select_db($objetoConexion, $config['bdd']);
+        $consulta = 'SELECT * FROM ' . $config['tabla'] .
                  " WHERE nombre='" . $nombreAComprobar . "'";
-//GUARDO  EN UNA VARIABLE EL TEXTO PARA LA CONSULTA DE LA TABLA
         $result = mysqli_query($objetoConexion, $consulta);
-//GUARDO EN UNA VARIABLE LA RESPUESTA A UNA CONSULTA A MYSQL
         $datos = mysqli_fetch_all($result);
-//GUARDO EN UNA VARIABLE EL ARREGLO DEL OBJETO RESPUESTA
         mysqli_close($objetoConexion);
-//CIERRO CONEXION CON MYSQL
         if ($datos != []) {
             return true;
         } else {
             return false;
-//SI DATOS ES DISTINTO A UN ARREGLO VACIO DEVUELVE TRUE, SINO DEVUELVE FALSE
         }
     }
     
-    public function insertar($values)
-//METODO PARA INSERTAR VALORES EN UNA TABLA DE LA BASE DE DATOS
+    public function insertar($values, $config)
     {
-        if ($this->comprobarSiExisteNombre($values[0])) {
+        if ($this->comprobarSiExisteNombre($values[0], $config)) {
             return false;
-//SI COMPROBAR SI EXISTE NOMBRE ES VERDADERO ME DEVUELVE FALSE
         }
-        $conexion = $this->crearConexionMysql();
-        mysqli_select_db($conexion, $this->config['bdd']);
-        $consulta = 'INSERT INTO ' . $this->config['tabla'] . ' (';
-//GUARDO COMO TEXTO EN VARIABLE LA CONSULTA PARA INSERTAR DATOS
-        foreach($this->config['columnas'] as $columna) {
+        $conexion = $this->crearConexionMysql($config);
+        mysqli_select_db($conexion, $config['bdd']);
+        $consulta = 'INSERT INTO ' . $config['tabla'] . ' (';
+        foreach($config['columnas'] as $columna) {
             $consulta = $consulta . $columna . ", ";
-//AGREGO POR CADA COLUMNA EL NOMBRE Y COMA A LA VARIABLE CONSULTA
         }
         $consulta = rtrim($consulta, ", ") . ') VALUES (';
-//RTRIM ELIMINA LA ULTIMA COMA Y ESPACIO DEL TEXTO DE CONSULTA
         foreach($values as $valor){
             $consulta = $consulta . "'" . $valor . "', " ;
-//AGREGO POR CADA VALOR COMILLAS SIMPLES Y COMA A LA VARIABLE CONSULTA
         }
         $consulta = rtrim($consulta, ", ") . ')';
-//$CONSULTA EN ESTE PUNTO QUEDA 
-// "INSERT INTO argentino (nombre, copas, nacionales) VALUES ('valor-nombre', 'valor_copas', valor-nacionales)"
         mysqli_query($conexion, $consulta);
-//ENVIO LA CONSULTA A MYSQL
         mysqli_close($conexion);
         return true;
-//SI LA CONSULTA ES CORRECTA DEVUELVE TRUE
     }
 
-    public function traerTodo()
+    public function traerTodo($config)
     {
-        $objetoConexion = $this->crearConexionMysql();
-        mysqli_select_db($objetoConexion, $this->config['bdd']); 
-        $consulta = 'SELECT * FROM ' . $this->config['tabla'];
+        $objetoConexion = $this->crearConexionMysql($config);
+        mysqli_select_db($objetoConexion, $config['bdd']); 
+        $consulta = 'SELECT * FROM ' . $config['tabla'];
         $result = mysqli_query($objetoConexion, $consulta);
         $datos = mysqli_fetch_all($result);
         mysqli_close($objetoConexion);
         return $datos;
     }
 
-    public function eliminar($id)
+    public function eliminar($id, $config)
     {   
-        $objetoConexion = $this->crearConexionMysql();
-        mysqli_select_db($objetoConexion, $this->config['bdd']); 
-        $consulta = 'DELETE FROM ' . $this->config['tabla'] . ' WHERE id=' . $id;
+        $objetoConexion = $this->crearConexionMysql($config);
+        mysqli_select_db($objetoConexion, $config['bdd']); 
+        $consulta = 'DELETE FROM ' . $config['tabla'] . ' WHERE id=' . $id;
         $result = mysqli_query($objetoConexion, $consulta);
         mysqli_close($objetoConexion);
         return $result;
     }
 
-    public function traerPorId($id)
+    public function traerPorId($id, $config)
     {
-        $objetoConexion = $this->crearConexionMysql();
-        mysqli_select_db($objetoConexion, $this->config['bdd']); 
-        $consulta = 'SELECT * FROM ' . $this->config['tabla'] . ' WHERE id=' . $id;
+        $objetoConexion = $this->crearConexionMysql($config);
+        mysqli_select_db($objetoConexion, $config['bdd']); 
+        $consulta = 'SELECT * FROM ' . $config['tabla'] . ' WHERE id=' . $id;
         $result = mysqli_query($objetoConexion, $consulta);
         $datos = mysqli_fetch_all($result);
         mysqli_close($objetoConexion);
         return $datos;
     }
 
-    public function actualizar($values, $id)
+    public function actualizar($values, $id, $config)
     {
-        $conexion = $this->crearConexionMysql();
-        mysqli_select_db($conexion, $this->config['bdd']);
-        $consulta = 'UPDATE ' . $this->config['tabla'] . ' SET ';
-        foreach($this->config['columnas'] as $index=>$columna) {
+        $conexion = $this->crearConexionMysql($config);
+        mysqli_select_db($conexion, $config['bdd']);
+        $consulta = 'UPDATE ' . $config['tabla'] . ' SET ';
+        foreach($config['columnas'] as $index=>$columna) {
             $consulta = $consulta . $columna . " = '" . $values[$index] . "', ";
         }
         $consulta = trim($consulta, ", ") . " WHERE id = " . $id;
@@ -129,7 +95,5 @@ class BdatosService
         return true;
     }
 }
-    
-$bdService = new BdatosService($configuracion);
 
 ?>

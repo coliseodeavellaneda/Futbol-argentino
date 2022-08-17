@@ -1,7 +1,6 @@
 <?php
 
 include("arribaplantilla.php");
-require_once "service/BdatosService.php";
 
 ?>
 
@@ -10,7 +9,9 @@ require_once "service/BdatosService.php";
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">
-                                Datos de tabla argentina
+                                <?php
+                                    echo $parametros['titulo'];
+                                ?>
                                 <a href="formularioCrear.php" class="btn btn-primary">
                                     nuevo
                                 </a>
@@ -21,9 +22,11 @@ require_once "service/BdatosService.php";
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>nombre</th>
-                                            <th>copas</th>
-                                            <th>nacionales</th>
+                                            <?php 
+                                                foreach ($parametros['columnas'] as $columna) {
+                                                    echo '<th>' . $columna . '</th>';
+                                                }
+                                            ?>
                                             <th>accion</th>
                                         </tr>
                                     </thead>
@@ -31,9 +34,7 @@ require_once "service/BdatosService.php";
                                     <tbody>
                                         <?php
 
-                                            $contenido = $bdService->traerTodo();
-
-                                            foreach ($contenido as $club) {
+                                            foreach ($parametros['contenido'] as $club) {
                                                 echo 
                                                     '<tr>
                                                         <td>' . $club[1] .'</td>
