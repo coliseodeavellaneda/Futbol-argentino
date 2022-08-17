@@ -1,10 +1,12 @@
 <?php
 
-class ErrorController
+require_once "controller/AbstractController.php";
+
+class ErrorController extends AbstractController
 {
-    public function __construct()
+    public function __call($name, $arguments)
     {
-        echo "Esto es un error!";
+        $this->loadView('error', []);
     }
 }
 
