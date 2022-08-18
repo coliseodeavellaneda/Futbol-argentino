@@ -11,7 +11,7 @@ if (key_exists("url", $_GET)) {                               // "argentino/inde
         require_once "controller/" . $controller . ".php";    // "controller/ArgentinoController.php"
         $object = new $controller($configuracion);                            // nuevo objeto de clase ArgentinoController
     } else {
-        require_once "controller/ErrorController.php";    // "controller/ArgentinoController.php"
+        require_once "controller/ErrorController.php";        // "controller/ArgentinoController.php"
         $object = new ErrorController;
         $object->index();
     }

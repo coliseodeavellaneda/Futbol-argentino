@@ -12,14 +12,14 @@ class ArgentinoController extends AbstractController
         $this->setService('bdatosService');
         $this->config = $config;
         $this->config['tabla'] = $this->model->modeloTabla;
+        $this->config['route'] = 'argentino';
     }
 
     public function index()
     {
         $parametros = [
             'titulo' => 'Datos de tabla ' . ucfirst($this->model->modeloTabla),
-            'columnas' => $this->model->modeloColumnas,
-            'route' => 'argentino'
+            'columnas' => $this->model->modeloColumnas
         ];
 
         $parametros['contenido'] = $this->service->traerTodo($this->config);
@@ -39,6 +39,20 @@ class ArgentinoController extends AbstractController
 
         $this->loadView('crear', $parametros);
     }
+    
+    public function store()
+    {
+        $values = [];
+
+        $values[0] = $_POST["club"];
+        $values[1] = $_POST["ncopas"];
+        $values[2] = $_POST["nnacionales"];
+        
+        $this->service->insertar($values, $this->config);
+
+        $this->index();
+    }
 }
+
 
 ?>

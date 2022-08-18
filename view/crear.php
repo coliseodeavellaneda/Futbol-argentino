@@ -18,7 +18,7 @@ include("arribaplantilla.php");
         </div>
         <div class="card-body">
 
-            <form action="crear.php" method="POST">
+            <form action="<?php echo $this->config['base_url'] . $this->config['route']?>/store" method="POST">
                 <?php
                     foreach ($parametros['labels'] as $name => $label) {
                         echo
@@ -29,19 +29,7 @@ include("arribaplantilla.php");
                         </div>';
                     }
                 ?>
-                <!-- <div class="mb-3">
-                    <label for="club" class="form-label">Nombre</label>
-                    <input type="name" name="club" class="form-control" id="club" aria-describedby="emailHelp">
-                    <div id="emailHelp" class="form-text"></div>
-                </div>
-                <div class="mb-3">
-                    <label for="ncopas" class="form-label">Copas</label>
-                    <input type="number" name="ncopas" class="form-control" id="ncopas">
-                </div>
-                <div class="mb-3">
-                    <label for="nnacionales" class="form-label">Nacionales</label>
-                    <input type="number" name="nnacionales" class="form-control" id="nnacionales">
-                </div> -->
+                
                 <button type="submit" class="btn btn-primary">guardar</button>
             </form>
         </div>
