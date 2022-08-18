@@ -24,21 +24,4 @@ class AbstractController
         require_once "view/" . $name . ".php";
     }
 }
-
-// $objetoController = new AbstractController;
-
-// $objetoController->setModel("argentino");
-// $objetoController->setService("BdatosService");
-// $objetoController->setModel("europeo");
-// $objetoController->loadView("tabla", [
-//     "titulo" => "esto es el titulo",
-//     "columnas" => ["col1", "col2", "col3"],
-//     "contenido" => [
-//         "cont1" => ["el0", "el1", "el2", "el3"], 
-//         "cont2" => ["el0", "el1", "el2", "el3"], 
-//         "cont3" => ["el0", "el1", "el2", "el3"]
-//     ]
-// ]);
-// $objetoController->loadView("crear", []);
-
 ?>

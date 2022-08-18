@@ -36,13 +36,8 @@ include("arribaplantilla.php");
     </div>
 </div>
 
-
-
-
-
 <?php
 
 include("abajoplantilla.php");
-
 
 ?>

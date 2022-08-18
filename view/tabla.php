@@ -41,7 +41,7 @@ include("arribaplantilla.php");
                                                         <td>' . $club[2] .'</td>
                                                         <td>' . $club[3] .'</td>
                                                         <td>
-                                                            <a href="formularioEditar.php?id=' . $club[0] .'" class="btn btn-success">
+                                                            <a href="' . $this->config['base_url'] . $this->config['route'] . '/edit?id=' . $club[0] .'" class="btn btn-success">
                                                                 editar
                                                             </a>
                                                             <a href="eliminar.php?id=' . $club[0] .'" type="button" class="btn btn-danger">

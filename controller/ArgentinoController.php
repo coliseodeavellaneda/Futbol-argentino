@@ -52,7 +52,42 @@ class ArgentinoController extends AbstractController
 
         $this->index();
     }
-}
 
+    public function edit()
+    {
+        $idClub = $_GET["id"];
+        [$club] = $this->service->traerPorId($idClub, $this->config);
+
+        // var_dump($club);
+
+        $parametros = [
+            "id" => $idClub,
+            "labels" => [
+                "club" => ["Nombre", $club[1]],
+                "ncopas" => ["Copas", $club[2]],
+                "nnacionales" => ["Nacionales", $club[3]]
+            ]
+        ];
+
+        $this->loadView('editar', $parametros);
+    }
+
+    public function update()
+    {
+        // var_dump($_POST);
+
+        $values = [];
+
+        $values[0] = $_POST["club"];
+        $values[1] = $_POST["ncopas"];
+        $values[2] = $_POST["nnacionales"];
+
+        $id = $_POST["id"];
+
+        $this->service->actualizar($values, $id, $this->config);
+
+        $this->index();
+    }
+}
 
 ?>
