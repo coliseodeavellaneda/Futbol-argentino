@@ -74,8 +74,6 @@ class ArgentinoController extends AbstractController
 
     public function update()
     {
-        // var_dump($_POST);
-
         $values = [];
 
         $values[0] = $_POST["club"];
@@ -85,6 +83,14 @@ class ArgentinoController extends AbstractController
         $id = $_POST["id"];
 
         $this->service->actualizar($values, $id, $this->config);
+
+        $this->index();
+    }
+
+    public function destroy()    
+    {
+        $clubId = $_GET["id"];
+        $this->service->eliminar($clubId, $this->config);
 
         $this->index();
     }
