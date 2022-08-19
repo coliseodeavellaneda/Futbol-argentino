@@ -21,11 +21,18 @@
                 <div class="sidebar-brand-text mx-3">FUTBOL <sup>Mato</sup></div>
             </a>
             <hr class="sidebar-divider my-0">
-            <li class="nav-item">
-                <a class="nav-link" href="argentino.php">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tabla Argentino</span></a>
-            </li>
+            <?php 
+                foreach ($this->config["navArray"] as $link => $texto) {
+                    echo
+                        '<li class="nav-item">
+                            <a class="nav-link" href="' . $this->config['base_url'] . $link . '">
+                                <i class="fas fa-fw fa-table"></i>
+                                <span>' . $texto . '</span>
+                            </a>
+                        </li>'
+                    ;
+                }
+            ?>
             <hr class="sidebar-divider d-none d-md-block">
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>

@@ -1,5 +1,5 @@
 <?php
-require_once "config.php";
+require_once "config.php";                                    // trae $configuracion
 
 if (key_exists("url", $_GET)) {                               // "argentino/index"
     $url = explode("/", $_GET['url']);                        // [ 0 => "argentino", 1 => "index" ]

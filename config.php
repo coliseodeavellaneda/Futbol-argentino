@@ -6,9 +6,13 @@ $configuracion = [
     'base_url'  => 'http://localhost/Futbol-argentino/',
     'contrasena'=> '',
     'bdd'       => 'Futbol',
-    'tabla'     =>'argentino',
-    'columnas'  =>[
+    'tabla'     => 'argentino',
+    'columnas'  => [
         'nombre', 'copas', 'nacionales'
+    ],
+    "navArray" => [
+        "argentino" => "Tabla Argentino",
+        "europeo" => "Tabla Europeo"
     ]
 ];
 
