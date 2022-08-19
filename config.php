@@ -1,19 +1,19 @@
 <?php
 
-$configuracion=[
-    'hostname' => '127.0.0.1', //localhost
-    'usuario'  => 'root',
+$configuracion = [
+    'hostname'  => '127.0.0.1', //localhost
+    'usuario'   => 'root',
+    'base_url'  => 'http://localhost/Futbol-argentino/',
     'contrasena'=> '',
     'bdd'       => 'Futbol',
-    'tabla'    =>'argentino',
-    'columnas'=>[
+    'tabla'     => 'argentino',
+    'columnas'  => [
         'nombre', 'copas', 'nacionales'
+    ],
+    "navArray" => [
+        "argentino" => "Tabla Argentino",
+        "europeo" => "Tabla Europeo"
     ]
 ];
-
-
-
-
-
 
 ?>

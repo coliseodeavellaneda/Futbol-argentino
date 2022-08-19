@@ -1,7 +1,6 @@
 <?php
 
 include("arribaplantilla.php");
-require_once "../service/BdatosService.php";
 
 ?>
 
@@ -10,8 +9,10 @@ require_once "../service/BdatosService.php";
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">
-                                Datos de tabla argentina
-                                <a href="formularioCrear.php" class="btn btn-primary">
+                                <?php
+                                    echo $parametros['titulo'];
+                                ?>
+                                <a href="<?php echo $this->config['base_url'] . $this->config['route']?>/create" class="btn btn-primary">
                                     nuevo
                                 </a>
                             </h6>
@@ -21,9 +22,11 @@ require_once "../service/BdatosService.php";
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>nombre</th>
-                                            <th>copas</th>
-                                            <th>nacionales</th>
+                                            <?php 
+                                                foreach ($parametros['columnas'] as $columna) {
+                                                    echo '<th>' . $columna . '</th>';
+                                                }
+                                            ?>
                                             <th>accion</th>
                                         </tr>
                                     </thead>
@@ -31,19 +34,17 @@ require_once "../service/BdatosService.php";
                                     <tbody>
                                         <?php
 
-                                            $contenido = $bdService->traerTodo();
-
-                                            foreach ($contenido as $club) {
+                                            foreach ($parametros['contenido'] as $club) {
                                                 echo 
                                                     '<tr>
                                                         <td>' . $club[1] .'</td>
                                                         <td>' . $club[2] .'</td>
                                                         <td>' . $club[3] .'</td>
                                                         <td>
-                                                            <a href="formularioEditar.php?id=' . $club[0] .'" class="btn btn-success">
+                                                            <a href="' . $this->config['base_url'] . $this->config['route'] . '/edit?id=' . $club[0] .'" class="btn btn-success">
                                                                 editar
                                                             </a>
-                                                            <a href="eliminar.php?id=' . $club[0] .'" type="button" class="btn btn-danger">
+                                                            <a href="' . $this->config['base_url'] . $this->config['route'] . '/destroy?id=' . $club[0] .'" type="button" class="btn btn-danger">
                                                                 eliminar
                                                             </a>
                                                         </td>
