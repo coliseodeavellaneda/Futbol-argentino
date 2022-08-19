@@ -9,7 +9,7 @@ if (key_exists("url", $_GET)) {                               // "argentino/inde
     
     if (file_exists("controller/" . $controller . ".php")) {
         require_once "controller/" . $controller . ".php";    // "controller/ArgentinoController.php"
-        $object = new $controller($configuracion);                            // nuevo objeto de clase ArgentinoController
+        $object = new $controller($configuracion);            // nuevo objeto de clase ArgentinoController
     } else {
         require_once "controller/ErrorController.php";        // "controller/ArgentinoController.php"
         $object = new ErrorController;
@@ -23,8 +23,8 @@ if (key_exists("url", $_GET)) {                               // "argentino/inde
     }
 
 } else {
-    require_once "controller/ArgentinoController.php";        // "controller/ArgentinoController.php"
-    $object = new ArgentinoController($configuracion);        // nuevo objeto de clase ArgentinoController
+    require_once "controller/PrincipalController.php";        // "controller/ArgentinoController.php"
+    $object = new PrincipalController($configuracion);                        // nuevo objeto de clase ArgentinoController
     $object->index();                                         // ejecuta index en objeto de clase ArgentinoController
 }
 
